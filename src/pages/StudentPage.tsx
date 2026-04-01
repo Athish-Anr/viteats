@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Star, PartyPopper, Search, Utensils } from "lucide-react";
 import { useRestaurants } from "@/context/RestaurantContext";
 import RestaurantCard from "@/components/RestaurantCard";
@@ -8,9 +8,11 @@ type OccasionFilter = "" | "casual" | "fine-dining" | "cafe" | "date-night" | "f
 
 const StudentPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { restaurants } = useRestaurants();
-  const [showRestaurants, setShowRestaurants] = useState(false);
+  const [showRestaurants, setShowRestaurants] = useState(searchParams.get("view") === "restaurants");
   const [showFilters, setShowFilters] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [distanceFilter, setDistanceFilter] = useState<number>(10);
   const [ratingFilter, setRatingFilter] = useState<number>(0);
   const [occasionFilter, setOccasionFilter] = useState<OccasionFilter>("");
@@ -19,6 +21,13 @@ const StudentPage = () => {
     if (r.distance > distanceFilter) return false;
     if (r.rating < ratingFilter) return false;
     if (occasionFilter && r.occasion !== occasionFilter) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchesName = r.name.toLowerCase().includes(q);
+      const matchesCuisine = r.cuisine.toLowerCase().includes(q);
+      const matchesOccasion = r.occasion.replace("-", " ").toLowerCase().includes(q);
+      if (!matchesName && !matchesCuisine && !matchesOccasion) return false;
+    }
     return true;
   });
 
@@ -44,16 +53,23 @@ const StudentPage = () => {
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         {!showRestaurants && (
-          <div className="animate-fade-in flex flex-col items-center gap-6 py-12">
-            <h2 className="text-2xl font-bold font-heading text-foreground text-center">What would you like to do?</h2>
-            <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-              <button
-                onClick={() => setShowRestaurants(true)}
-                className="flex-1 bg-card border border-border rounded-xl p-6 card-elevated text-center hover:border-primary/40 transition-all"
-              >
-                <Utensils className="w-8 h-8 text-primary mx-auto mb-3" />
-                <span className="font-semibold font-heading text-foreground">Load Restaurants</span>
-              </button>
+          <div className="animate-fade-in flex flex-col items-center justify-center gap-8 py-0" style={{ minHeight: 'calc(100vh - 80px)' }}>
+            <div
+              className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl"
+              style={{ backgroundImage: 'url(/images/food-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+            >
+              <div className="absolute inset-0 bg-black/60" />
+              <div className="relative z-10 flex flex-col items-center gap-5 py-16 px-8">
+                <Utensils className="w-12 h-12 text-primary drop-shadow-lg" />
+                <h2 className="text-3xl font-bold font-heading text-white text-center drop-shadow-lg">Discover Restaurants</h2>
+                <p className="text-white/80 text-center text-sm max-w-xs">Find the best food spots near VIT campus — from fast food to fine dining.</p>
+                <button
+                  onClick={() => setShowRestaurants(true)}
+                  className="mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-xl shadow-lg transition-all text-lg"
+                >
+                  Load Restaurants
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -64,7 +80,17 @@ const StudentPage = () => {
               <h2 className="text-2xl font-bold font-heading text-foreground">
                 {showFilters ? "Filtered Results" : "All Restaurants"}
               </h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search name, cuisine..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="text-sm pl-9 pr-3 py-2 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-all w-48"
+                  />
+                </div>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
                   className={`text-sm px-4 py-2 rounded-lg border transition-all font-medium ${
@@ -73,11 +99,10 @@ const StudentPage = () => {
                       : "bg-card text-foreground border-border hover:border-primary/40"
                   }`}
                 >
-                  <Search className="w-4 h-4 inline mr-1" />
                   Filters
                 </button>
                 <button
-                  onClick={() => { setShowRestaurants(false); setShowFilters(false); }}
+                  onClick={() => { setShowRestaurants(false); setShowFilters(false); setSearchQuery(""); }}
                   className="text-sm px-4 py-2 rounded-lg border border-border bg-card text-foreground hover:border-destructive/40 transition-all font-medium"
                 >
                   Back
