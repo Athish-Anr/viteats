@@ -105,7 +105,7 @@ const RestaurantDetail = () => {
                   {items.map((item, i) => (
                     <div key={i} className="flex justify-between items-center bg-card border border-border rounded-lg px-4 py-3">
                       <span className="text-foreground font-medium">{item.name}</span>
-                      <span className="text-primary font-semibold">${item.price.toFixed(2)}</span>
+                      <span className="text-primary font-semibold">₹{item.price.toFixed(2)}</span>
                     </div>
                   ))}
                 </div>
