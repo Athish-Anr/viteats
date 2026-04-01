@@ -53,23 +53,27 @@ const StudentPage = () => {
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         {!showRestaurants && (
-          <div className="animate-fade-in flex flex-col items-center justify-center gap-8 py-0" style={{ minHeight: 'calc(100vh - 80px)' }}>
-            <div
-              className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl"
-              style={{ backgroundImage: 'url(/images/food-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
-            >
-              <div className="absolute inset-0 bg-black/60" />
-              <div className="relative z-10 flex flex-col items-center gap-5 py-16 px-8">
-                <Utensils className="w-12 h-12 text-primary drop-shadow-lg" />
-                <h2 className="text-3xl font-bold font-heading text-white text-center drop-shadow-lg">Discover Restaurants</h2>
-                <p className="text-white/80 text-center text-sm max-w-xs">Find the best food spots near VIT campus — from fast food to fine dining.</p>
-                <button
-                  onClick={() => setShowRestaurants(true)}
-                  className="mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-xl shadow-lg transition-all text-lg"
-                >
-                  Load Restaurants
-                </button>
+          <div
+            className="animate-fade-in fixed inset-0 flex flex-col items-center justify-center"
+            style={{ backgroundImage: 'url(/images/food-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+            <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center">
+              <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/30 shadow-lg shadow-primary/20">
+                <Utensils className="w-10 h-10 text-primary" />
               </div>
+              <h2 className="text-4xl sm:text-5xl font-bold font-heading text-white drop-shadow-xl tracking-tight">
+                Discover Restaurants
+              </h2>
+              <p className="text-white/75 text-base sm:text-lg max-w-md leading-relaxed">
+                Find the best food spots near VIT campus — from fast food to fine dining.
+              </p>
+              <button
+                onClick={() => setShowRestaurants(true)}
+                className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-10 py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all text-lg hover:scale-105 active:scale-95"
+              >
+                🍽️ Load Restaurants
+              </button>
             </div>
           </div>
         )}
