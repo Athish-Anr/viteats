@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import { GraduationCap, ShieldCheck } from "lucide-react";
 
 const Index = () => {
