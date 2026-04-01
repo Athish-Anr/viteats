@@ -52,16 +52,23 @@ const StudentPage = () => {
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         {!showRestaurants && (
-          <div className="animate-fade-in flex flex-col items-center gap-6 py-12">
-            <h2 className="text-2xl font-bold font-heading text-foreground text-center">What would you like to do?</h2>
-            <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-              <button
-                onClick={() => setShowRestaurants(true)}
-                className="flex-1 bg-card border border-border rounded-xl p-6 card-elevated text-center hover:border-primary/40 transition-all"
-              >
-                <Utensils className="w-8 h-8 text-primary mx-auto mb-3" />
-                <span className="font-semibold font-heading text-foreground">Load Restaurants</span>
-              </button>
+          <div className="animate-fade-in flex flex-col items-center justify-center gap-8 py-0" style={{ minHeight: 'calc(100vh - 80px)' }}>
+            <div
+              className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl"
+              style={{ backgroundImage: 'url(/images/food-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+            >
+              <div className="absolute inset-0 bg-black/60" />
+              <div className="relative z-10 flex flex-col items-center gap-5 py-16 px-8">
+                <Utensils className="w-12 h-12 text-primary drop-shadow-lg" />
+                <h2 className="text-3xl font-bold font-heading text-white text-center drop-shadow-lg">Discover Restaurants</h2>
+                <p className="text-white/80 text-center text-sm max-w-xs">Find the best food spots near VIT campus — from fast food to fine dining.</p>
+                <button
+                  onClick={() => setShowRestaurants(true)}
+                  className="mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-xl shadow-lg transition-all text-lg"
+                >
+                  Load Restaurants
+                </button>
+              </div>
             </div>
           </div>
         )}
