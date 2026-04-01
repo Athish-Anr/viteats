@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Star, PartyPopper, Search, Utensils } from "lucide-react";
 import { useRestaurants } from "@/context/RestaurantContext";
 import RestaurantCard from "@/components/RestaurantCard";
@@ -8,8 +8,9 @@ type OccasionFilter = "" | "casual" | "fine-dining" | "cafe" | "date-night" | "f
 
 const StudentPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { restaurants } = useRestaurants();
-  const [showRestaurants, setShowRestaurants] = useState(false);
+  const [showRestaurants, setShowRestaurants] = useState(searchParams.get("view") === "restaurants");
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [distanceFilter, setDistanceFilter] = useState<number>(10);

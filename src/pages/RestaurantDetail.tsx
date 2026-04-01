@@ -49,7 +49,7 @@ const RestaurantDetail = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3">
-          <button onClick={() => navigate("/student")} className="text-muted-foreground hover:text-foreground transition-colors">
+          <button onClick={() => navigate("/student?view=restaurants")} className="text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <h1 className="text-xl font-bold font-heading text-foreground truncate">{restaurant.name}</h1>
