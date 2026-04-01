@@ -79,7 +79,17 @@ const StudentPage = () => {
               <h2 className="text-2xl font-bold font-heading text-foreground">
                 {showFilters ? "Filtered Results" : "All Restaurants"}
               </h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search name, cuisine..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="text-sm pl-9 pr-3 py-2 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-all w-48"
+                  />
+                </div>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
                   className={`text-sm px-4 py-2 rounded-lg border transition-all font-medium ${
@@ -88,11 +98,10 @@ const StudentPage = () => {
                       : "bg-card text-foreground border-border hover:border-primary/40"
                   }`}
                 >
-                  <Search className="w-4 h-4 inline mr-1" />
                   Filters
                 </button>
                 <button
-                  onClick={() => { setShowRestaurants(false); setShowFilters(false); }}
+                  onClick={() => { setShowRestaurants(false); setShowFilters(false); setSearchQuery(""); }}
                   className="text-sm px-4 py-2 rounded-lg border border-border bg-card text-foreground hover:border-destructive/40 transition-all font-medium"
                 >
                   Back

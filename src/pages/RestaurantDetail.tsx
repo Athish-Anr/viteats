@@ -21,7 +21,7 @@ const RestaurantDetail = () => {
         <div className="text-center">
           <span className="text-5xl block mb-4">🔍</span>
           <p className="text-muted-foreground mb-4">Restaurant not found</p>
-          <button onClick={() => navigate("/student")} className="text-primary font-medium hover:underline">
+          <button onClick={() => navigate("/student?view=restaurants")} className="text-primary font-medium hover:underline">
             Go back
           </button>
         </div>
