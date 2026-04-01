@@ -38,28 +38,21 @@ const StudentPage = () => {
           <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-xl font-bold font-heading text-foreground">🎓 Student Portal</h1>
+          <h1 className="text-xl font-bold font-heading text-foreground">🎓 Student / Faculty Portal</h1>
         </div>
       </header>
 
       <main className="max-w-5xl mx-auto px-4 py-8">
-        {!showRestaurants && !showFilters && (
+        {!showRestaurants && (
           <div className="animate-fade-in flex flex-col items-center gap-6 py-12">
             <h2 className="text-2xl font-bold font-heading text-foreground text-center">What would you like to do?</h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
               <button
-                onClick={() => { setShowRestaurants(true); setShowFilters(false); }}
+                onClick={() => setShowRestaurants(true)}
                 className="flex-1 bg-card border border-border rounded-xl p-6 card-elevated text-center hover:border-primary/40 transition-all"
               >
                 <Utensils className="w-8 h-8 text-primary mx-auto mb-3" />
                 <span className="font-semibold font-heading text-foreground">Load Restaurants</span>
-              </button>
-              <button
-                onClick={() => { setShowFilters(true); setShowRestaurants(true); }}
-                className="flex-1 bg-card border border-border rounded-xl p-6 card-elevated text-center hover:border-accent/60 transition-all"
-              >
-                <Search className="w-8 h-8 text-accent mx-auto mb-3" />
-                <span className="font-semibold font-heading text-foreground">Filters</span>
               </button>
             </div>
           </div>
