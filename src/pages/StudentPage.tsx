@@ -11,6 +11,7 @@ const StudentPage = () => {
   const { restaurants } = useRestaurants();
   const [showRestaurants, setShowRestaurants] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [distanceFilter, setDistanceFilter] = useState<number>(10);
   const [ratingFilter, setRatingFilter] = useState<number>(0);
   const [occasionFilter, setOccasionFilter] = useState<OccasionFilter>("");
@@ -19,6 +20,13 @@ const StudentPage = () => {
     if (r.distance > distanceFilter) return false;
     if (r.rating < ratingFilter) return false;
     if (occasionFilter && r.occasion !== occasionFilter) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchesName = r.name.toLowerCase().includes(q);
+      const matchesCuisine = r.cuisine.toLowerCase().includes(q);
+      const matchesOccasion = r.occasion.replace("-", " ").toLowerCase().includes(q);
+      if (!matchesName && !matchesCuisine && !matchesOccasion) return false;
+    }
     return true;
   });
 
